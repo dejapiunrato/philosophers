@@ -54,8 +54,8 @@ En casoo de no hacer ni _join_ ni _detach_ no se liberan los recursos y se tradu
 
 | Caso            | ¿Necesitas esperar el hilo? | ¿Quieres que el sistema lo libere automáticamente? | Solución            |
 |-----------------|-----------------------------|--------------------------------|------------------|
-| Sí              | Sí                          | No                             | `pthread_join`  |
-| No              | No                          | Sí                             | `pthread_detach` |
+| Sí              | Sí                          | No                             | `pthread_join()`  |
+| No              | No                          | Sí                             | `pthread_detach()` |
 | No haces nada   | ❌                          | ❌                             | ❌ **Error: Fuga de memoria** |
 
 
@@ -75,10 +75,10 @@ Un mutex sigue el siguiente procceso:
 8. ...
 
 Las funciones básicas de gestión de mutex son:
-1. [`pthread_mutex_init()`](pegar_enlace) Iniciar mutex.
-2. [`pthread_mutex_destroy()`](pegar_enlace) Elimiar mutex.
-3. [`pthread_mutex_lock()`](pegar_enlace) Bloquear mutex.
-4. [`pthread_mutex_unlock()`](pegar_enlace) Desbloquear mutex.
+1. [`pthread_mutex_init()`](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#1-pthread_mutex_init) Iniciar mutex.
+2. [`pthread_mutex_destroy()`](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#2-pthread_mutex_destroy) Elimiar mutex.
+3. [`pthread_mutex_lock()`](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#3-pthread_mutex_lock) Bloquear mutex.
+4. [`pthread_mutex_unlock()`](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#4-pthread_mutex_unlock) Desbloquear mutex.
 
 ### Ejemplo básico con hilos y mutex
 ```C
