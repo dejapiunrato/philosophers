@@ -144,7 +144,7 @@ int	main(void)
 ```
 
 ## Funciones para gestionar mutex.
-En esta sección no hay ejemplos de uso de cada función, para ver cómo jugar con mutex ir a [este apartado](pegar_enlace).
+En esta sección no hay ejemplos de uso de cada función, para ver cómo jugar con mutex ir a [este apartado](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/apuntes.md#ejemplo-b%C3%A1sico-con-hilos-y-mutex).
 ### 1. `pthread_mutex_init()`
 Inicializar un mutex.
 
