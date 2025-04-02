@@ -45,7 +45,7 @@ Así, si una persona cocina comida en la cocina (modifica el heap), cualquier ot
 ### Manejo básico de hilos con `pthread.h`
 _POSIX Threads_ (`thread.h`) es una biblioteca para manejar hilos en sistemas Unix y la cual usaremos para realizar este proyecto.
 
-Para crear un hilo se hace uso de [`pthread_create()`]([pegar_enlace](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#1-pthread_create)), en función de para qué se uso este hilo tendremos que usar [`pthread_join()`]([pegar_enlace](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#2-pthread_join)) o [`pthread_detach()`]([pegar_enlace](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#3-pthread_detach)):
+Para crear un hilo se hace uso de [`pthread_create()`](pegar_enlace)(https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#1-pthread_create), en función de para qué se uso este hilo tendremos que usar [`pthread_join()`](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#2-pthread_join) o [`pthread_detach()`](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#3-pthread_detach):
 
 1. [`pthread_join()`](pegar_enlace) sirve cuando hay que esperar a que termine la ejecución del hilo porque los resultados del hilo son necesarios para continuar o porque quieres asegurarte de que el hilo ha terminado de antes de que el programa finalice.
 2. [`pthread_detach()`]([pegar_enlace](https://github.com/dejapiunrato/philosophers/blob/main/apuntes/funciones.md#3-pthread_detach)) libera los recursos utilizados por el hilo automáticamente al terminar su ejecución, se usa cuando no hace falta recoger los datos.
