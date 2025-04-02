@@ -89,7 +89,7 @@ Las funciones básicas de gestión de mutex son:
 typedef pthread_mutex_t mutex_t;
 
 mutex_t		mutex;
-int			i = 0;
+int		i = 0;
 
 void *increment(void *arg)
 {
