@@ -104,7 +104,7 @@ int	main(void)
 {
 	pthread_t	tid1;
 	pthread_t	tid2;
-	int			error;
+	int		error;
 
 	error = pthread_mutex_init(&mutex, NULL);
 	if (error)
