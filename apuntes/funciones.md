@@ -76,7 +76,7 @@ int	main(void)
 ```
 
 ### 2. `pthread_join()`
-Espera que un hilo termine.
+Espera que un hilo termine y después libera sus recursos.
 ```C
 int	pthreadd_join(pthread_t thread, void *retval)
 ```
@@ -110,7 +110,7 @@ int	main(void)
 ```
 
 ### 3. `pthread_detach()`
-Seara un hilo para que se limpie automáticamente cuando termine sin necesidad de llamar a `pthread_join`.
+Espera a un hilo para que se limpie automáticamente cuando termine sin necesidad de llamar a `pthread_join`.
 
 ```C
 int	pthread_detach(pthread_t thread);

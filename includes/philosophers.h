@@ -28,5 +28,6 @@ typedef	struct s_philo
 
 // initialization
 int	init_table(t_table *table, char	**argv);
+int	check_args(int argc, char **argv);
 
 #endif
