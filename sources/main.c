@@ -6,7 +6,7 @@
 /*   By: psevilla <psevilla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:04:17 by psevilla          #+#    #+#             */
-/*   Updated: 2025/05/20 18:27:14 by psevilla         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:14:50 by psevilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,50 @@ void	print_table(t_table *table)
 	printf("Número de comidas: %ld\n", table->meals);
 }
 
-void	exit_failure(int errno)
+int	exit_failure(int errno)
 {
 	if (errno == 1)
-		ft_print_str("Wrong number of arguments\n");
+		ft_putstr_fd("Wrong number of arguments\n", 2);
 	if (errno == 2)
-		ft_print_str("First argument is not a number\n");	// Nº de filósofos
+		ft_putstr_fd("Invalid philosophers number\n", 2);
 	if (errno == 3)
-		ft_print_str("Second argument is not a number\n");	// Tiempo pa morir
+		ft_putstr_fd("Invalid time to die\n",2);
 	if (errno == 4)
-		ft_print_str("Third argument is not a number\n");	// Tiempo pa comer
+		ft_putstr_fd("Invalid time to eat\n",2 );
 	if (errno == 5)
-		ft_print_str("Forth argument is not a number\n");	// Tiempo pa dormir
+		ft_putstr_fd("Invalid time to sleep\n",2);
 	if (errno == 6)
-		ft_print_str("Fifth argument is not a number\n");	// Veces pa comer
-	exit(1);
+		ft_putstr_fd("Invalid number of times each philosopher must eat\n",2);
+	if (errno == 7)
+		ft_putstr_fd("Maximum number of philosophers exceeded\n", 2);
+	return (1);
+}
+
+int	check_args(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	if (argc != 5 && argc != 6)
+		return (i);
+	if (ft_atol(argv[1]) > PHILO_MAX)
+		return (7);
+	while (i != argc)
+	{
+		if (is_number(argv[i]) || ft_atol(argv[i]) <= 0)
+			return (++i);
+		i++;
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_table	table;
-	int		input_error;
 
-	input_error = check_args(argc, argv);
-	if (input_error)
-		exit_failure(input_error);
+	table.input_error = check_args(argc, argv);
+	if (table.input_error)
+		return (exit_failure(table.input_error));
 	init_table(&table, argv);
 	print_table(&table);
 	// start_dinner(&table);

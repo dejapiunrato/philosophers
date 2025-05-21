@@ -10,6 +10,8 @@
 #include <limits.h>
 # include "libft.h"
 
+# define PHILO_MAX 200
+
 typedef	struct s_table
 {
 	long	philosophers;
@@ -17,17 +19,24 @@ typedef	struct s_table
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	meals;
+	int		input_error;
 	// Añadir movidas
 }	t_table;
 
 typedef	struct s_philo
 {
-	int		id;
+	pthread_t	thread;
+	int			id;
+	int			eating;
+	int			meals_eaten;
 	// Añadir movidas
 }	t_philo;
 
 // initialization
 int	init_table(t_table *table, char	**argv);
 int	check_args(int argc, char **argv);
+
+// utils
+int	is_number(char *s);
 
 #endif

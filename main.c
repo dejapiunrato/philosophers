@@ -1,77 +1,69 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <pthread.h>
+#include <stddef.h>
+#include <stddef.h>
+#include <limits.h>
 
-// the initial balance is 0
-int balance = 0;
-pthread_mutex_t mutex;
-
-// write the new balance (after as simulated 1/4 second delay)
-void write_balance(int new_balance)
+long	ft_atol(char *s)
 {
-  usleep(250000);
-  balance = new_balance;
+	long long	num;
+	int			neg;
+	int			i;
+
+	num = 0;
+	neg = 1;
+	i = 0;
+	while (s[i] == ' ' || (s[i] >= '\t' && s[i] <= '\r'))
+		i++;
+	if (s[i] == '-' || s[i] == '+')
+	{
+		if (s[i] == '-')
+			neg = -neg;
+		i++;
+	}
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		num = num * 10 + (s[i] - '0');
+		i++;
+	}
+	return ((long)(neg * num));
 }
-
-// returns the balance (after a simulated 1/4 seond delay)
-int read_balance()
+int main(void)
 {
-  usleep(250000);
-  return balance;
-}
+    char *test_cases[] = {
+        "42",                          // Número positivo simple
+        "-42",                         // Número negativo simple
+        "   123",                      // Número con espacios iniciales
+        "   -123",                     // Número negativo con espacios iniciales
+        "0",                           // Cero
+        "999999999999999999",          // Número fuera del rango de long positivo
+        "-999999999999999999",         // Número fuera del rango de long negativo
+        "2147483647",                  // Límite superior de int
+        "-2147483648",                 // Límite inferior de int
+        "9223372036854775807",         // Límite superior de long
+        "-9223372036854775808",        // Límite inferior de long
+        "++42",                        // Doble signo positivo
+        "--42",                        // Doble signo negativo
+        "+-42",                        // Signos mezclados
+        "-+42",                        // Signos mezclados
+        "abc123",                      // Letras antes de números
+        "123abc",                      // Letras después de números
+        "   +42abc",                   // Espacios, signo y letras después
+        "",                            // Cadena vacía
+        "   ",                         // Solo espacios
+        "   +",                        // Espacios y signo sin número
+        "   -",                        // Espacios y signo sin número
+        NULL                           // Fin de los casos de prueba
+    };
 
-// carry out a deposit
-void* deposit(void *amount)
-{
-  // lock the mutex
-  pthread_mutex_lock(&mutex);
+    printf("%-25s | %-20s | %-20s\n", "Input", "ft_atol", "atol");
+    printf("--------------------------------------------------------------------------\n");
 
-  // retrieve the bank balance
-  int account_balance = read_balance();
+    for (int i = 0; test_cases[i] != NULL; i++) {
+        char *input = test_cases[i];
+        long ft_result = ft_atol(input);
+        long std_result = atol(input);
 
-  // make the update locally
-  account_balance += *((int *) amount);
+        printf("%-25s | %-20ld | %-20ld\n", input, ft_result, std_result);
+    }
 
-  // write the new bank balance
-  write_balance(account_balance);
-
-  // unlock to make the critical section available to other threads
-  pthread_mutex_unlock(&mutex);
-
-  return NULL;
-}
-
-int main()
-{
-  // output the balance before the deposits
-  int before = read_balance();
-  printf("Before: %d\n", before);
-
-  // we'll create two threads to conduct a deposit using the deposit function
-  pthread_t thread1;
-  pthread_t thread2;
-
-  // initialize the mutex
-  pthread_mutex_init(&mutex, NULL);
-
-  // the deposit amounts... the correct total afterwards should be 500
-  int deposit1 = 300;
-  int deposit2 = 200;
-
-  // create threads to run the deposit function with these deposit amounts
-  pthread_create(&thread1, NULL, deposit, (void*) &deposit1);
-  pthread_create(&thread2, NULL, deposit, (void*) &deposit2);
-
-  // join the threads
-  pthread_join(thread1, NULL);
-  pthread_join(thread2, NULL);
-
-   // destroy the mutex
-  pthread_mutex_destroy(&mutex);
-
-  // output the balance after the deposits
-  int after = read_balance();
-  printf("After: %d\n", after);
-
-  return 0;
+    return 0;
 }
